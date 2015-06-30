@@ -1,0 +1,12 @@
+
+# 04.02.2014 Sync
+# 30.01.2014 Gestione grupi owncloud
+templates/create-mailbox.php
+templates/edit-mailbox.php
+users/create-mailbox.php
+users/edit-mailbox.php
+
+# 30.01.2014 Gestione utenze amministrative
+users/list-admin.php
+users/admin.php
+
