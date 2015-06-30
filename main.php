@@ -9,28 +9,42 @@
  * Further details on the project are available at : 
  *     http://www.postfixadmin.com or http://postfixadmin.sf.net 
  * 
- * @version $Id: main.php 566 2009-02-15 15:02:26Z christian_boltz $ 
+ * @version $Id: main.php 575 2009-03-13 20:48:24Z GingerDog $ 
  * @license GNU GPL v2 or later. 
  * 
  * File: main.php
- * Displays a menu/home page.
+ * 'Home page' for logged in users.
  * Template File: main.php
  *
- * Template Variables: -none-
+ * Template Variables:
+ *
+ * tummVacationtext
  *
  * Form POST \ GET Variables: -none-
  */
 
-require_once('common.php');
+require_once('admin/common.php');
+authentication_require_role('user');
+$USERID_USERNAME = authentication_get_username();
 
-$SESSID_USERNAME = authentication_get_username();
+if ($_SESSION['sessid']['nuovo'] == 'nuovo') {
+      header("Location: nuovo.php");
+      exit;
+}
 
-authentication_require_role('admin');
+$vh = new VacationHandler($USERID_USERNAME);
+if($vh->check_vacation()) {
+   $tummVacationtext = $PALANG['pUsersMain_vacationSet'];
+}
+else
+{
+   $tummVacationtext = $PALANG['pUsersMain_vacation'];
+}
 
-include ("./templates/header.php");
-include ("./templates/menu.php");
-include ("./templates/main.php");
-include ("./templates/footer.php");
+include ("templates/header.php");
+include ("templates/users_menu.php");
+include ("templates/users_main.php");
+include ("templates/footer.php");
 
-/* vim: set expandtab softtabstop=4 tabstop=4 shiftwidth=4: */
+/* vim: set expandtab softtabstop=3 tabstop=3 shiftwidth=3: */
 ?>

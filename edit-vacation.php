@@ -37,7 +37,7 @@
  * fActive
  */
 
-require_once('common.php');
+require_once('admin/common.php');
 require_once('calendar/tc_calendar.php');
 
 if($CONF['vacation'] == 'NO') { 

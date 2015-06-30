@@ -14,6 +14,7 @@
  * 
  * File: logout.php
  * De-authenticates a user.
+ *
  * Template File: -none-
  *
  * Template Variables: -none-
@@ -21,7 +22,7 @@
  * Form POST \ GET Variables: -none-
  */
 
-require_once('common.php');
+require_once('admin/common.php');
 
 session_unset ();
 session_destroy ();

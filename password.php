@@ -9,12 +9,12 @@
  * Further details on the project are available at : 
  *     http://www.postfixadmin.com or http://postfixadmin.sf.net 
  * 
- * @version $Id: password.php 566 2009-02-15 15:02:26Z christian_boltz $ 
+ * @version $Id: password.php 837 2010-06-22 22:14:03Z christian_boltz $ 
  * @license GNU GPL v2 or later. 
  * 
  * File: password.php
- * Allows admins to change their own password.
- * Template File: password.php
+ * Used by users to change their mailbox (and login) password.
+ * Template File: users_password.php
  *
  * Template Variables:
  *
@@ -27,72 +27,74 @@
  * fPassword2
  */
 
-require_once('common.php');
+require_once('admin/common.php');
 
-authentication_require_role('admin');
-
-$SESSID_USERNAME = authentication_get_username();
-
-if ($_SERVER['REQUEST_METHOD'] == "GET")
-{
-    include ("./templates/header.php");
-    include ("./templates/menu.php");
-    include ("./templates/password.php");
-    include ("./templates/footer.php");
-}
+authentication_require_role('user');
+$username = authentication_get_username();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST")
 {
-    if (isset ($_POST['fPassword_current'])) $fPassword_current = escape_string ($_POST['fPassword_current']);
-    if (isset ($_POST['fPassword'])) $fPassword = escape_string ($_POST['fPassword']);
-    if (isset ($_POST['fPassword2'])) $fPassword2 = escape_string ($_POST['fPassword2']);
-
-    $username = $SESSID_USERNAME;
-
-    $result = db_query ("SELECT * FROM $table_admin WHERE username='$username'");
-    if ($result['rows'] == 1)
-    {
-        $row = db_array ($result['result']);
-        $checked_password = pacrypt ($fPassword_current, $row['password']);
-
-        $result = db_query ("SELECT * FROM $table_admin WHERE username='$username' AND password='$checked_password'");
-        if ($result['rows'] != 1)
-        {
-            $error = 1;
-            $pPassword_password_current_text = $PALANG['pPassword_password_current_text_error'];
-        }
-    }
-    else
-    {
-        $error = 1;
-        $pPassword_email_text = $PALANG['pPassword_email_text_error'];
+    if(isset($_POST['fCancel'])) {
+        header("Location: main.php");
+        exit(0);
     }
 
+    $fPassword_current = $_POST['fPassword_current'];
+    $fPassword = $_POST['fPassword'];
+    $fPassword2 = $_POST['fPassword2'];
+
+    $error = 0;
+    if(strlen($fPassword) < $CONF['min_password_length']) {
+        $error += 1;
+        flash_error(sprintf($PALANG['pPasswordTooShort'], $CONF['min_password_length']));
+    }
+    //spazioweb modifica 05.03.2012 verifica robustezza password
+    if ((!preg_match('/[0-9]+/', $fPassword)) || (!preg_match('/[a-zA-Z]+/', $fPassword))) {
+        flash_error(sprintf($PALANG['pPasswordNotRobust']));
+        $error += 1;
+    }
+
+    if(!UserHandler::login($username, $fPassword_current)) {
+        $error += 1;
+        $pPassword_password_current_text = $PALANG['pPassword_password_current_text_error'];
+    }
     if (empty ($fPassword) or ($fPassword != $fPassword2))
     {
-        $error = 1;
+        $error += 1;
         $pPassword_password_text = $PALANG['pPassword_password_text_error'];
     }
 
-    if ($error != 1)
+    if ($error == 0)
     {
-        $password = pacrypt ($fPassword);
-        $result = db_query ("UPDATE $table_admin SET password='$password',modified=NOW() WHERE username='$username'");
-        if ($result['rows'] == 1)
-        {
-            $tMessage = $PALANG['pPassword_result_success'];
+        $uh = new UserHandler($username);
+        if($uh->change_pass($fPassword_current, $fPassword)) {
+		if (authentication_get_usertype () == "global-admin") {
+			$password = pacrypt ($fPassword);
+			$result = db_query ("UPDATE $table_admin SET password='$password',modified=NOW() WHERE username='$username'");
+			if ($result['rows'] == 1) {
+	            		flash_info($PALANG['pPassword_result_success']);
+	            		header("Location: main.php");
+	            		exit(0);
+			} else {
+	            		$tMessage = $PALANG['pPassword_result_error'];
+			}
+		} else {
+            		flash_info($PALANG['pPassword_result_success']);
+            		header("Location: main.php");
+            		exit(0);
+		}
         }
         else
         {
             $tMessage = $PALANG['pPassword_result_error'];
         }
     }
-
-    include ("./templates/header.php");
-    include ("./templates/menu.php");
-    include ("./templates/password.php");
-    include ("./templates/footer.php");
 }
+
+include ("templates/header.php");
+include ("templates/users_menu.php");
+include ("templates/users_password.php");
+include ("templates/footer.php");
 
 /* vim: set expandtab softtabstop=4 tabstop=4 shiftwidth=4: */
 ?>

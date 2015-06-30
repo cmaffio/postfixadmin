@@ -35,7 +35,7 @@
  * fMail
  */
 
-require_once('common.php');
+require_once('admin/common.php');
 
 authentication_require_role('admin');
 $SESSID_USERNAME = authentication_get_username();
@@ -76,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
     if (isset ($_POST['fPassword'])) $fPassword = escape_string ($_POST['fPassword']);
     if (isset ($_POST['fPassword2'])) $fPassword2 = escape_string ($_POST['fPassword2']);
     isset ($_POST['fName']) ? $fName = escape_string ($_POST['fName']) : $fName = "";
+    isset ($_POST['focgroup']) ? $focgroup = escape_string ($_POST['focgroup']) : $focgroup = "";
     if (isset ($_POST['fDomain'])) $fDomain = escape_string ($_POST['fDomain']);
     isset ($_POST['fQuota']) ? $fQuota = intval($_POST['fQuota']) : $fQuota = 0;
     isset ($_POST['fActive']) ? $fActive = escape_string ($_POST['fActive']) : $fActive = "1";
@@ -87,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         $error = 1;
         $tUsername = escape_string ($_POST['fUsername']);
         $tName = $fName;
+        $tocgroup = $focgroup;
         $tQuota = $fQuota;
         $tDomain = $fDomain;
         $pCreate_mailbox_username_text = $PALANG['pCreate_mailbox_username_text_error1'];
@@ -97,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         $error = 1;
         $tUsername = escape_string ($_POST['fUsername']);
         $tName = $fName;
+        $tocgroup = $focgroup;
         $tQuota = $fQuota;
         $tDomain = $fDomain;
         $pCreate_mailbox_username_text = $PALANG['pCreate_mailbox_username_text_error3'];
@@ -107,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         $error = 1;
         $tUsername = escape_string ($_POST['fUsername']);
         $tName = $fName;
+        $tocgroup = $focgroup;
         $tQuota = $fQuota;
         $tDomain = $fDomain;
         $pCreate_mailbox_username_text = $PALANG['pCreate_mailbox_username_text_error1'];
@@ -125,6 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
             $error = 1;
             $tUsername = escape_string ($_POST['fUsername']);
             $tName = $fName;
+            $tocgroup = $focgroup;
             $tQuota = $fQuota;
             $tDomain = $fDomain;
             $pCreate_mailbox_password_text = $PALANG['pCreate_mailbox_password_text_error'];
@@ -138,6 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
             $error = 1;
             $tUsername = escape_string ($_POST['fUsername']);
             $tName = $fName;
+            $tocgroup = $focgroup;
             $tQuota = $fQuota;
             $tDomain = $fDomain;
             $pCreate_mailbox_quota_text = $PALANG['pCreate_mailbox_quota_text_error'];
@@ -150,6 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         $error = 1;
         $tUsername = escape_string ($_POST['fUsername']);
         $tName = $fName;
+        $tocgroup = $focgroup;
         $tQuota = $fQuota;
         $tDomain = $fDomain;
         $pCreate_mailbox_username_text = $PALANG['pCreate_mailbox_username_text_error2'];
@@ -216,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
             $local_part = $matches[1];
         }
 
-        $result = db_query ("INSERT INTO $table_mailbox (username,password,name,maildir,local_part,quota,domain,created,modified,active) VALUES ('$fUsername','$password','$fName','$maildir','$local_part','$quota','$fDomain',NOW(),NOW(),'$sqlActive')");
+        $result = db_query ("INSERT INTO $table_mailbox (username,password,name,maildir,local_part,quota,domain,created,modified,active,ocgroup) VALUES ('$fUsername','$password','$fName','$maildir','$local_part','$quota','$fDomain',NOW(),NOW(),'$sqlActive','$focgroup')");
         if ($result['rows'] != 1 || !mailbox_postcreation($fUsername,$fDomain,$maildir, $quota))
         {
             $tDomain = $fDomain;
@@ -226,37 +233,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
         else
         {
             db_query('COMMIT');
-	    #
-	    # Ldap
-	    #
-	    $ldaphost = "db.mi.esseweb.intra";
-	    $ldapport = "1389";
-	    $ldaprdn = 'cn=Manager';
-	    $ldappass = 'Lorien37';
-	    $ldapconn = ldap_connect($ldaphost, $ldapport) or die("Could not connect to $ldaphost");
-	    $ldapbind = ldap_bind($ldapconn, $ldaprdn, $ldappass);
-	    $account = $fUsername;
-	    $pos=strpos ($fUsername,'@bmm.it');
-	    if ($pos > 0){
-		$account = substr($account,0,$pos);
-	    	$rdnab = sprintf("cn=%s,ou=personal,ou=contacts,o=bmm.it,dc=mi,dc=esseweb,dc=eu",$account);
-	    	$aciab = sprintf("(targetattr=\"*\") (version 3.0; acl \"%s\"; allow (all) userdn=\"ldap:///uid=%s,ou=accounts,o=bmm.it,dc=mi,dc=esseweb,dc=eu\";)",$nomeacl,$account);
-	    }else{
-		$account = $fUsername;
-	    	$rdnab = sprintf("cn=%s,ou=personal,ou=contacts,o=default,dc=mi,dc=esseweb,dc=eu",$account);
-	    	$aciab = sprintf("(targetattr=\"*\") (version 3.0; acl \"%s\"; allow (all) userdn=\"ldap:///uid=%s,ou=accounts,o=default,dc=mi,dc=esseweb,dc=eu\";)",$nomeacl,$account);
-	    }
-	    $nomeacl = sprintf("ACLab%s",$account);
-	    $abrecord['cn']=$rdnab;
-	    $abrecord['aci']=$aciab;
-	    $abrecord['objectClass'][0]='organizationalRole';
-	    $res = ldap_add($ldapconn,$rdnab,$abrecord);
-	    // if ($res == TRUE){
-            // 	flash_error("Rubrica Ldap creata correttamente");
-	    // }else{
-            // 	flash_error("Errore nella creazione della rubrica");
-            // }
-            ldap_close ($ldapconn);
 
             db_log ($SESSID_USERNAME, $fDomain, 'create_mailbox', "$fUsername");
             $tDomain = $fDomain;
@@ -302,7 +278,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 }
 
 include ("templates/header.php");
-include ("templates/menu.php");
+include ("templates/users_menu.php");
 include ("templates/create-mailbox.php");
 include ("templates/footer.php");
 

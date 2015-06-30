@@ -28,7 +28,7 @@
  * fDomain
  * fDisplay
  */
-require_once('common.php');
+require_once('admin/common.php');
 
 
 authentication_require_role('admin');
@@ -319,7 +319,7 @@ if (isset ($limit)) {
 // this is why we need a proper template layer.
 $fDomain = htmlentities($fDomain, ENT_QUOTES);
 include ("templates/header.php");
-include ("templates/menu.php");
+include ("templates/users_menu.php");
 include ("templates/list-virtual.php");
 include ("templates/footer.php");
 

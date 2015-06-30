@@ -28,7 +28,7 @@
  * fDomain
  */
 
-require_once('common.php');
+require_once('admin/common.php');
 
 authentication_require_role('admin');
 $SESSID_USERNAME = authentication_get_username();
@@ -125,7 +125,7 @@ if ($result['rows'] > 0)
 }
 
 include ("templates/header.php");
-include ("templates/menu.php");
+include ("templates/users_menu.php");
 include ("templates/search.php");
 include ("templates/footer.php");
 

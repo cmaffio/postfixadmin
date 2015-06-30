@@ -13,9 +13,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <?php
-if (file_exists (realpath ("../".$CONF['theme_css']))) {
-    print "<link rel=\"stylesheet\" type=\"text/css\" href=\"../".htmlentities($CONF['theme_css'])."\" />\n";
-} else {
+if (file_exists (realpath ($CONF['theme_css']))) {
     print "<link rel=\"stylesheet\" type=\"text/css\" href=\"".htmlentities($CONF['theme_css'])."\" />\n";
 }
 ?>
@@ -24,10 +22,8 @@ if (file_exists (realpath ("../".$CONF['theme_css']))) {
 <body>
 <div id="login_header">
 <?php
-if (file_exists (realpath ("../".$CONF['theme_logo'])))
+if (file_exists (realpath ($CONF['theme_logo'])))
 {
-    print "<img id=\"login_header_logo\" src=\"../".htmlentities($CONF['theme_logo'])."\" />\n";
-} else {
     print "<img id=\"login_header_logo\" src=\"".htmlentities($CONF['theme_logo'])."\" />\n";
 }
 

@@ -25,7 +25,7 @@
  * fUsername
  */
 
-require_once('common.php');
+require_once('admin/common.php');
 
 authentication_require_role('admin');
 
@@ -106,7 +106,7 @@ while ($row = db_array ($result['result'])) {
 }
 
 include ("templates/header.php");
-include ("templates/menu.php");
+include ("templates/users_menu.php");
 
 if ($is_superadmin) {
    include ("templates/admin_list-domain.php");

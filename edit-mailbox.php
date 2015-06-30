@@ -33,7 +33,7 @@
  * fActive
  */
 
-require_once('common.php');
+require_once('admin/common.php');
 
 authentication_require_role('admin');
 $SESSID_USERNAME = authentication_get_username();
@@ -75,6 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET")
       if ('pgsql'==$CONF['database_type']) {
          $tActive = ('t'==$user_details['active']) ? 1 : 0;
       }
+      //spazioweb modifica 30.01.2014 gestione gruppi OC
+      $tocgroup = $user_details['ocgroup'];
 
       $result = db_query ("SELECT * FROM $table_domain WHERE domain='$fDomain'");
       if ($result['rows'] == 1)
@@ -95,6 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
    if (isset ($_POST['fPassword'])) $fPassword = escape_string ($_POST['fPassword']);
    if (isset ($_POST['fPassword2'])) $fPassword2 = escape_string ($_POST['fPassword2']);
    if (isset ($_POST['fName'])) $fName = escape_string ($_POST['fName']);
+   //spazioweb modifica 30.01.2014 gestione gruppi OC
+   if (isset ($_POST['focgroup'])) $focgroup = escape_string ($_POST['focgroup']);
    if (isset ($_POST['fQuota'])) $fQuota = intval ($_POST['fQuota']);
    if (isset ($_POST['fActive'])) $fActive = escape_string ($_POST['fActive']);
 
@@ -129,6 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
          $tName = $fName;
          $tQuota = $fQuota;
          $tActive = $fActive;
+         //spazioweb modifica 30.01.2014 gestione gruppi OC
+	 $tocgroup = $focgroup;
          $pEdit_mailbox_quota_text = $PALANG['pEdit_mailbox_quota_text_error'];
       }
    }
@@ -157,6 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
       $formvars['name'] = $fName;
       $formvars['quota'] =$quota;
       $formvars['active']=$sqlActive;
+      $formvars['ocgroup']=$focgroup;
       if(preg_match('/^(.*)@/', $fUsername, $matches)) {
          $formvars['local_part'] = $matches[1];
       }
@@ -178,11 +185,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
       $tName = $fName;
       $tQuota = $fQuota;
       $tActive = $fActive;
+      $tocgroup = $focgroup;
    }
 }
 
 include ("templates/header.php");
-include ("templates/menu.php");
+include ("templates/users_menu.php");
 include ("templates/edit-mailbox.php");
 include ("templates/footer.php");
 /* vim: set expandtab softtabstop=3 tabstop=3 shiftwidth=3: */
