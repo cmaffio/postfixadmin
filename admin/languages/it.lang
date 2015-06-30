@@ -321,7 +321,7 @@ $PALANG['pAdminEdit_admin_result_success'] = 'L\'amministratore &egrave; stato m
 
 //$PALANG['pUsersLogin_welcome'] = 'Gli utenti di caselle di posta devono entrare qui per modificare le proprie opzioni.';
 $PALANG['pUsersLogin_welcome'] = 'PANNELLO DI GESTIONE SERVIZI';
-$PALANG['pUsersLogin_username'] = 'Nome utente (email)';
+$PALANG['pUsersLogin_username'] = 'Mail';
 $PALANG['pUsersLogin_password'] = 'Password';
 $PALANG['pUsersLogin_button'] = 'Entra';
 $PALANG['pUsersLogin_username_incorrect'] = 'Il tuo nome utente non &egrave; corretto. Assicurati di avere inserito il tuo indirizzo email!';
