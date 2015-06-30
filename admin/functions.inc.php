@@ -2323,6 +2323,7 @@ function create_admin($fUsername, $fPassword, $fPassword2, $fDomains, $no_genera
         $pAdminCreate_admin_username_text = $PALANG['pAdminCreate_admin_username_text_error2'];
     }
 
+/*
     if (empty ($fPassword) or empty ($fPassword2) or ($fPassword != $fPassword2))
     {
         if (empty ($fPassword) and empty ($fPassword2) and $CONF['generate_password'] == "YES" && $no_generate_password == 0)
@@ -2336,6 +2337,7 @@ function create_admin($fUsername, $fPassword, $fPassword2, $fDomains, $no_genera
             $pAdminCreate_admin_password_text = $PALANG['pAdminCreate_admin_password_text_error'];
         }
     }
+*/
 
     if ($error != 1)
     {
@@ -2416,18 +2418,13 @@ function is_admin_role ($fUsername, $fPassword) {
 	global $table_admin,$table_domain_admins;
 
 	$result = db_query ("SELECT password FROM $table_admin WHERE username='$fUsername' AND active='1'");
-	if ($result['rows'] == 1) {   
-		$row = db_array ($result['result']);
-		$password = pacrypt ($fPassword, $row['password']);
-		$result = db_query ("SELECT * FROM $table_admin WHERE username='$fUsername' AND password='$password' AND active='1'");
-		if ($result['rows'] == 1) {   
-			$_SESSION['sessid']['roles'][] = 'admin';
-			$_SESSION['sessid']['type'] = 'admin';
-			$result = db_query ("SELECT * FROM $table_domain_admins WHERE username='$fUsername' AND domain='ALL' AND active='1'");
-			if ($result['rows'] == 1) {
-				$_SESSION['sessid']['roles'][] = 'global-admin';
-				$_SESSION['sessid']['type'] = 'global-admin';
-			}
+	if ($result['rows'] == 1) {
+		$_SESSION['sessid']['roles'][] = 'admin';
+		$_SESSION['sessid']['type'] = 'admin';
+		$result = db_query ("SELECT * FROM $table_domain_admins WHERE username='$fUsername' AND domain='ALL' AND active='1'");
+		if ($result['rows'] == 1) {
+			$_SESSION['sessid']['roles'][] = 'global-admin';
+			$_SESSION['sessid']['type'] = 'global-admin';
 		}
 	}
 }
