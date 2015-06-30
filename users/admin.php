@@ -22,7 +22,7 @@ include ("../templates/users_menu.php");
       <td nowrap><a target="_top" href="list-admin.php">Amministratori di posta</a></td>
       <td>Gestione degli amministratori dei domini di posta presenti sul sistema</td>
    </tr>
-<? } ?>
+<?php } ?>
 
 </table>
 </div>

@@ -11,7 +11,7 @@
    <li><a target="_top" href="documentazione.php">Manualistica</a></li>
 <?php if (authentication_get_usertype () == "admin" || authentication_get_usertype () == "global-admin") { ?>
    <li><a target="_top" href="admin.php">Admin</a></li>
-<? } ?>
+<?php } ?>
    <li><a target="_top" href="logout.php"><?php print $PALANG['pMenu_logout']; ?></a></li>
 </ul>
 </div>
@@ -26,4 +26,3 @@ if (file_exists (realpath ("../motd-users.txt")))
    print "</div>";
 }
 ?>
-

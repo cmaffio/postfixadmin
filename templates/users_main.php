@@ -6,7 +6,7 @@
       <td nowrap><a target="_top" href="admin.php">Admin</a></td>
       <td>Attività ad uso dell'Amministratore del Sistema.</td>
    </tr>
-<? } ?>
+<?php } ?>
 
    <tr>
       <td nowrap><a target="_top" href="gestposta.php">Gestione casella di posta</a></td>
