@@ -7,7 +7,7 @@
    </tr>
    <tr>
       <td><?php print $PALANG['pEdit_alias_address'] . ":"; ?></td>
-      <td><?php print $USERID_USERNAME; ?></td>
+      <td><?php print $fAddress; ?></td>
       <td>&nbsp;</td>
    </tr>
    <tr>
