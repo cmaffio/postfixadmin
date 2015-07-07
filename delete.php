@@ -30,7 +30,7 @@
  * fDomain
  */
 
-require_once('admin/common.php');
+require_once('common.php');
 
 authentication_require_role('admin');
 
@@ -176,10 +176,10 @@ else
 }
 
 
-include ("templates/header.php");
-include ("templates/users_menu.php");
-include ("templates/message.php");
-include ("templates/footer.php");
+include ("$incpath/templates/header.php");
+include ("$incpath/templates/users_menu.php");
+include ("$incpath/templates/message.php");
+include ("$incpath/templates/footer.php");
 
 /* vim: set expandtab softtabstop=4 tabstop=4 shiftwidth=4: */
 ?>

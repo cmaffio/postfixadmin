@@ -1,9 +1,9 @@
 <?php
-require_once('admin/common.php');
+require_once('common.php');
 authentication_require_role('user');
 
-include ("templates/header.php");
-include ("templates/users_menu.php");
+include ("$incpath/templates/header.php");
+include ("$incpath/templates/users_menu.php");
 
 ?>
 <div id="main_menu">
@@ -21,5 +21,5 @@ include ("templates/users_menu.php");
 </div>
 
 <?php
-include ("templates/footer.php");
+include ("$incpath/templates/footer.php");
 ?>

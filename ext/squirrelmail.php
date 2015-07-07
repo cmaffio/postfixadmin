@@ -1,6 +1,6 @@
 <?php
-require_once('../admin/common.php');
-include '../admin/procrypt.php';
+require_once('../common.php');
+include '$incpath/admin/procrypt.php';
 authentication_require_role('user');
 
 /* $decrypt = openssl_decrypt($_SESSION['sessid'][forgetdata], "AES-256-CBC", "25c6c7ff35b9h79b151f2136cd13b0ff"); */

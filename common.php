@@ -29,12 +29,12 @@ $incpath = dirname(__FILE__);
 if(ini_get('register_globals') == 'on') {
     die("Please turn off register_globals; edit your php.ini");
 }
-require_once("$incpath/variables.inc.php");
+require_once("$incpath/admin/variables.inc.php");
 
-if(!is_file("$incpath/config.inc.php")) {
+if(!is_file("$incpath/conf/config.inc.php")) {
     die("config.inc.php is missing!");
 }
-require_once("$incpath/config.inc.php");
+require_once("$incpath/conf/config.inc.php");
 
 if(isset($CONF['configured'])) {
     if($CONF['configured'] == FALSE) {
@@ -43,9 +43,9 @@ if(isset($CONF['configured'])) {
 }
 
 
-require_once("$incpath/languages/language.php");
-require_once("$incpath/functions.inc.php");
-require_once("$incpath/languages/" . check_language () . ".lang");
+require_once("$incpath/admin/languages/language.php");
+require_once("$incpath/admin/functions.inc.php");
+require_once("$incpath/admin/languages/" . check_language () . ".lang");
 
 /**
  * @param string $class

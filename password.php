@@ -27,7 +27,7 @@
  * fPassword2
  */
 
-require_once('admin/common.php');
+require_once('common.php');
 
 authentication_require_role('user');
 $username = authentication_get_username();
@@ -91,10 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
     }
 }
 
-include ("templates/header.php");
-include ("templates/users_menu.php");
-include ("templates/users_password.php");
-include ("templates/footer.php");
+include ("$incpath/templates/header.php");
+include ("$incpath/templates/users_menu.php");
+include ("$incpath/templates/users_password.php");
+include ("$incpath/templates/footer.php");
 
 /* vim: set expandtab softtabstop=4 tabstop=4 shiftwidth=4: */
 ?>

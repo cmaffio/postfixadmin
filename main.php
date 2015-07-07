@@ -23,7 +23,7 @@
  * Form POST \ GET Variables: -none-
  */
 
-require_once('admin/common.php');
+require_once('common.php');
 authentication_require_role('user');
 $USERID_USERNAME = authentication_get_username();
 
@@ -41,10 +41,10 @@ else
    $tummVacationtext = $PALANG['pUsersMain_vacation'];
 }
 
-include ("templates/header.php");
-include ("templates/users_menu.php");
-include ("templates/users_main.php");
-include ("templates/footer.php");
+include ("$incpath/templates/header.php");
+include ("$incpath/templates/users_menu.php");
+include ("$incpath/templates/users_main.php");
+include ("$incpath/templates/footer.php");
 
 /* vim: set expandtab softtabstop=3 tabstop=3 shiftwidth=3: */
 ?>

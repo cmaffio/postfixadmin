@@ -28,21 +28,21 @@
  *  lang
  */
 
-require_once("admin/common.php");
+require_once("common.php");
 
 
 if ($_SERVER['REQUEST_METHOD'] == "GET")
 {
-   include ("templates/header.php");
-   include ("templates/users_login.php");
-   include ("templates/footer.php");
+   include ("$incpath/templates/header.php");
+   include ("$incpath/templates/users_login.php");
+   include ("$incpath/templates/footer.php");
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST")
 {
 
    $lang = safepost('lang');
-   include 'admin/procrypt.php';
+   include ("$incpath/admin/procrypt.php");
 
    if ( $lang != check_language(0) ) { # only set cookie if language selection was changed
       setcookie('lang', $lang, time() + 60*60*24*30); # language cookie, lifetime 30 days
@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 
       is_admin_role ($fUsername, $fPassword);
       is_new($fUsername);
+      is_mr_role($fUsername);
 
       header("Location: main.php");
       exit;
@@ -76,9 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
          $tUsername = $fUsername;
    }
 
-   include ("templates/header.php");
-   include ("templates/users_login.php");
-   include ("templates/footer.php");
+   include ("$incpath/templates/header.php");
+   include ("$incpath/templates/users_login.php");
+   include ("$incpath/templates/footer.php");
 }
 /* vim: set expandtab softtabstop=3 tabstop=3 shiftwidth=3: */
 ?>

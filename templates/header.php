@@ -13,7 +13,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <?php
-if (file_exists (realpath ($CONF['theme_css']))) {
+if (file_exists ($CONF['theme_css'])) {
     print "<link rel=\"stylesheet\" type=\"text/css\" href=\"".htmlentities($CONF['theme_css'])."\" />\n";
 }
 ?>

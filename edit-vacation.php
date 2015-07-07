@@ -37,7 +37,7 @@
  * fActive
  */
 
-require_once('admin/common.php');
+require_once('common.php');
 require_once('calendar/tc_calendar.php');
 
 if($CONF['vacation'] == 'NO') { 
@@ -225,9 +225,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
   }
 }
 
-include ("templates/header.php");
-include ("templates/users_menu.php");
-include ("templates/edit-vacation.php");
-include ("templates/footer.php");
+include ("$incpath/templates/header.php");
+include ("$incpath/templates/users_menu.php");
+include ("$incpath/templates/edit-vacation.php");
+include ("$incpath/templates/footer.php");
 /* vim: set expandtab softtabstop=3 tabstop=3 shiftwidth=3: */
 ?>

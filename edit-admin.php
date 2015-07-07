@@ -33,7 +33,7 @@
  * fActive
  */
 
-require_once('admin/common.php');
+require_once('common.php');
 
 authentication_require_role('global-admin');
 
@@ -119,10 +119,10 @@ if ($result['rows'] >= 1) {
     }
 }
 
-include ("templates/header.php");
-include ("templates/users_menu.php");
-include ("templates/admin_edit-admin.php");
-include ("templates/footer.php");
+include ("$incpath/templates/header.php");
+include ("$incpath/templates/users_menu.php");
+include ("$incpath/templates/admin_edit-admin.php");
+include ("$incpath/templates/footer.php");
 
 /* vim: set expandtab softtabstop=4 tabstop=4 shiftwidth=4: */
 ?>

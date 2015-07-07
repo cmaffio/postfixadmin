@@ -25,7 +25,7 @@
  * fUsername
  */
 
-require_once('admin/common.php');
+require_once('common.php');
 
 authentication_require_role('admin');
 
@@ -105,15 +105,15 @@ while ($row = db_array ($result['result'])) {
    $domain_properties [$row['domain']] ['alias_count'] = $row['alias_count'] - $domain_properties [$row['domain']] ['mailbox_count'];
 }
 
-include ("templates/header.php");
-include ("templates/users_menu.php");
+include ("$incpath/templates/header.php");
+include ("$incpath/templates/users_menu.php");
 
 if ($is_superadmin) {
-   include ("templates/admin_list-domain.php");
+   include ("$incpath/templates/admin_list-domain.php");
 } else {
-   include ("templates/overview-get.php");
+   include ("$incpath/templates/overview-get.php");
 }
-include ("templates/footer.php");
+include ("$incpath/templates/footer.php");
 
 /* vim: set expandtab softtabstop=3 tabstop=3 shiftwidth=3: */
 ?>

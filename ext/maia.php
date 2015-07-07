@@ -1,6 +1,6 @@
 <?php
-require_once('../admin/common.php');
-include '../admin/procrypt.php';
+require_once('../common.php');
+include '$incpath/admin/procrypt.php';
 authentication_require_role('user');
 
 $crypt = new proCrypt;

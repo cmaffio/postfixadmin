@@ -1,13 +1,13 @@
 <?php
 
-require_once('admin/common.php');
+require_once('common.php');
 //authentication_require_role('user');
 //$USERID_USERNAME = authentication_get_username();
 
-include ("templates/header.php");
+include ("$incpath/templates/header.php");
 
 if (!empty($_GET)) {
-	include ("templates/users_attiva.php");
+	include ("$incpath/templates/users_attiva.php");
 } elseif (!empty($_POST)) {
 
 } else { ?>
@@ -15,7 +15,7 @@ if (!empty($_GET)) {
 <?php
 }
 
-include ("templates/footer.php");
+include ("$incpath/templates/footer.php");
 
 
 /* vim: set expandtab softtabstop=3 tabstop=3 shiftwidth=3: */

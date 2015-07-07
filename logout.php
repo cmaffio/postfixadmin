@@ -22,7 +22,7 @@
  * Form POST \ GET Variables: -none-
  */
 
-require_once('admin/common.php');
+require_once('common.php');
 
 session_unset ();
 session_destroy ();

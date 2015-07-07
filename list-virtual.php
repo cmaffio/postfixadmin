@@ -28,7 +28,7 @@
  * fDomain
  * fDisplay
  */
-require_once('admin/common.php');
+require_once('common.php');
 
 
 authentication_require_role('admin');
@@ -318,10 +318,10 @@ if (isset ($limit)) {
 
 // this is why we need a proper template layer.
 $fDomain = htmlentities($fDomain, ENT_QUOTES);
-include ("templates/header.php");
-include ("templates/users_menu.php");
-include ("templates/list-virtual.php");
-include ("templates/footer.php");
+include ("$incpath/templates/header.php");
+include ("$incpath/templates/users_menu.php");
+include ("$incpath/templates/list-virtual.php");
+include ("$incpath/templates/footer.php");
 
 /* vim: set expandtab softtabstop=4 tabstop=4 shiftwidth=4: */
 ?>

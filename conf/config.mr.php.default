@@ -1,0 +1,10 @@
+<?php
+$MR['database_type'] = 'mysqli';
+$MR['database_host'] = '';
+$MR['database_user'] = '';
+$MR['database_password'] = '';
+$MR['database_name'] = '';
+
+// END OF CONFIG FILE
+//
+/* vim: set expandtab softtabstop=4 tabstop=4 shiftwidth=4: */
