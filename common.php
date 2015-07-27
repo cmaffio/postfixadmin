@@ -42,6 +42,12 @@ if(isset($CONF['configured'])) {
     }
 }
 
+if(!is_file("$incpath/conf/config.mr.php")) {
+    die("config.mr.php is missing!");
+}
+require_once("$incpath/conf/config.mr.php");
+
+
 
 require_once("$incpath/admin/languages/language.php");
 require_once("$incpath/admin/functions.inc.php");

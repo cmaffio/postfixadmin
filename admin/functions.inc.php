@@ -93,16 +93,20 @@ function authentication_has_role($role) {
 function authentication_require_role($role) {
     global $CONF;
     // redirect to appropriate page?
-    if(authentication_has_role($role)) {
-        return True;
+
+    if (is_array ($role)) {
+	foreach ($role as &$value) {
+    		if(authentication_has_role($value)) {
+    		    return True;
+    		}
+	}
+    } else {
+    	if(authentication_has_role($role)) {
+    	    return True;
+    	}
     }
-    if($role === 'user') {
-        //header("Location: " . $CONF['postfix_admin_url'] . '/users/login.php');
-        header("Location: " . $CONF['postfix_admin_url'] . '/login.php');
-    }
-    else {
-        header("Location: " . $CONF['postfix_admin_url'] . "/login.php");
-    }
+
+    header("Location: " . $CONF['postfix_admin_url'] . '/login.php');
     exit(0);
 }
 
@@ -2460,6 +2464,47 @@ function is_mr_role ($fUsername) {
 	if ($result['rows'] == 1) {
 		$_SESSION['sessid']['roles'][] = 'mr';
 		$_SESSION['sessid']['mr'] = 'true';
+	}
+}
+
+function is_mm_role ($fUsername) {
+	global $MM;
+
+	$error_text = "";
+	if (function_exists ("mysqli_connect")) {
+		$link_mm = mysqli_connect ($MM['database_host'], $MM['database_user'], $MM['database_password']) or $error_text .= ("<p />DEBUG INFORMATION:<br />Connect: " .  mysqli_connect_error () . "$DEBUG_TEXT");
+		if ($link_mm) {
+			mysqli_query($link_mm,"SET CHARACTER SET utf8");
+			mysqli_query($link_mm,"SET COLLATION_CONNECTION='utf8_general_ci'");
+			$success = mysqli_select_db ($link_mm, $MM['database_name']) or $error_text .= ("<p />DEBUG INFORMATION:<br />MySQLi Select Database: " .  mysqli_error ($link_mm) . "$DEBUG_TEXT");
+		}
+	} else {
+		$error_text .= "<p />DEBUG INFORMATION:<br />MySQL 4.1 functions not available! (php5-mysqli installed?)<br />";
+	}
+	print "$error_text";
+
+	$query = "SELECT sasl_pwd FROM utenze WHERE mail='$fUsername' AND scade > NOW() AND attivo=1";
+
+	$result = mysqli_query ($link_mm, $query);
+	$num_mm = mysqli_num_rows ($result);
+
+	if ($num_mm == 1) {
+		$_SESSION['sessid']['roles'][] = 'mm';
+		$_SESSION['sessid']['mm'] = 'true';
+
+		$rows = mysqli_fetch_assoc ($result);
+		if ($rows['sasl_pwd'] == NULL) {
+
+			$crypt = new proCrypt;
+			$decrypt_all=$crypt->decrypt($_SESSION['sessid'][forgetdata]);
+			$decrypt = substr($decrypt_all,0, $_SESSION['sessid'][lenpass]);
+
+			$decrypt = unpack ("h*", $decrypt);
+			$decrypt = unpack ("H*", $decrypt[1]);
+
+			$query = "UPDATE utenze SET sasl_pwd = '".$decrypt[1]."' WHERE mail='$fUsername' AND scade > NOW() AND attivo='1'";
+			$result = mysqli_query ($link_mm, $query);
+		}
 	}
 }
 

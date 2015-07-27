@@ -1,9 +1,18 @@
 <?php
+
+// Accesso DB invii massivi
 $MR['database_type'] = 'mysqli';
 $MR['database_host'] = '';
 $MR['database_user'] = '';
 $MR['database_password'] = '';
 $MR['database_name'] = '';
+
+// Accesso DB mass mailing
+$MM['database_type'] = 'mysqli';
+$MM['database_host'] = '';
+$MM['database_user'] = '';
+$MM['database_password'] = '';
+$MM['database_name'] = '';
 
 // END OF CONFIG FILE
 //

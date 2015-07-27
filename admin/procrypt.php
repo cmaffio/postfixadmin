@@ -49,7 +49,7 @@ class proCrypt
         switch( $name )
         {
             case 'key':
-            return 'keee';
+            return 'qft6hytekovad46geu!hdfetrhrtj09w';
 
             case 'ivs':
             return mcrypt_get_iv_size( MCRYPT_RIJNDAEL_128, MCRYPT_MODE_ECB );

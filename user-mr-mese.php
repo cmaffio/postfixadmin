@@ -3,11 +3,6 @@ require_once('common.php');
 
 authentication_require_role ('mr');
 
-if(!is_file("$incpath/conf/config.mr.php")) {
-    die("config.mr.php is missing!");
-}
-require_once("$incpath/conf/config.mr.php");
-
 $error_text = "";
 if (function_exists ("mysqli_connect")) {
 	$link_mr = mysqli_connect ($MR['database_host'], $MR['database_user'], $MR['database_password']) or $error_text .= ("<p />DEBUG INFORMATION:<br />Connect: " .  mysqli_connect_error () . "$DEBUG_TEXT");

@@ -67,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
       is_admin_role ($fUsername, $fPassword);
       is_new($fUsername);
       is_mr_role($fUsername);
+      is_mm_role($fUsername);
 
       header("Location: main.php");
       exit;
