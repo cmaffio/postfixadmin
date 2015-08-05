@@ -184,6 +184,14 @@ ul.flash-error {
 	border: 1px solid #efefef;
 }
 
+#list_table table {
+	margin: 0 auto;
+	padding-top: 10px;
+	text-align: left;
+	width: 700px;
+	border: 1px solid #efefef;
+}
+
 #edit_form h3  {
 	text-align: center;
 	font-size: 12px;

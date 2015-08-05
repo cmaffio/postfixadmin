@@ -39,7 +39,7 @@ $query_sch = "	SELECT
 			DATE_FORMAT(scheduler.data_invio, '%d.%m.%Y %T') AS partenza, 
 			scheduler.id AS id,
 			liste.nome as lista,
-			count(destinatari.id) AS destinatari,
+			liste.id as lista_id,
 			scheduler.numero as blocchi
 		FROM 
 			scheduler 
@@ -49,14 +49,12 @@ $query_sch = "	SELECT
 			ricezioni ON ricezioni.id = scheduler.id_ricezioni
 		JOIN
 			liste ON liste.id = scheduler.id_liste
-		JOIN
-			destinatari ON destinatari.id_liste = liste.id AND destinatari.stato = 1
 		WHERE
 			utenze.mail = '".authentication_get_username()."'
 		AND
 			scheduler.stato = 1
 		ORDER BY 
-			ricezioni.arrivata
+			scheduler.data_invio
 		";
 
 $query_run = "	SELECT 
@@ -66,7 +64,7 @@ $query_run = "	SELECT
 			scheduler.id AS id,
 			scheduler.inviate AS inviate,
 			liste.nome as lista,
-			count(destinatari.id) AS destinatari,
+			liste.id as lista_id,
 			scheduler.numero as blocchi
 		FROM 
 			scheduler 
@@ -76,8 +74,6 @@ $query_run = "	SELECT
 			ricezioni ON ricezioni.id = scheduler.id_ricezioni
 		JOIN
 			liste ON liste.id = scheduler.id_liste
-		JOIN
-			destinatari ON destinatari.id_liste = liste.id AND destinatari.stato = 1
 		WHERE
 			utenze.mail = '".authentication_get_username()."'
 		AND
@@ -94,7 +90,7 @@ $query_end = "	SELECT
 			scheduler.id AS id,
 			scheduler.inviate AS inviate,
 			liste.nome as lista,
-			count(destinatari.id) AS destinatari,
+			liste.id as lista_id,
 			scheduler.numero as blocchi
 		FROM 
 			scheduler 
@@ -104,12 +100,10 @@ $query_end = "	SELECT
 			ricezioni ON ricezioni.id = scheduler.id_ricezioni
 		JOIN
 			liste ON liste.id = scheduler.id_liste
-		JOIN
-			destinatari ON destinatari.id_liste = liste.id AND destinatari.stato = 1
 		WHERE
 			utenze.mail = '".authentication_get_username()."'
 		AND
-			scheduler.stato = 10
+			scheduler.stato >= 10
 		ORDER BY 
 			ricezioni.arrivata
 		";

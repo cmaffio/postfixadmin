@@ -27,7 +27,7 @@ if (authentication_get_usertype () == "global-admin") {
       <td>Accesso alla gestione ed allo stato degli invii</td>
    </tr>
    <tr>
-      <td nowrap><a target="_top" href="">Gestione liste</a></td>
+      <td nowrap><a target="_top" href="list-mm.php">Gestione liste</a></td>
       <td>Gestione delle liste di indirizzi di invio</td>
    </tr>
 

@@ -1,15 +1,16 @@
-<?php if( !defined('POSTFIXADMIN') ) die( "This file cannot be used standalone." ); ?>
+<?php 
+if( !defined('POSTFIXADMIN') ) die( "This file cannot be used standalone." ); 
 
-<?php
-$rows = mysqli_fetch_assoc ($result_sch);
-
+$rows = mysqli_fetch_assoc ($result); 
 ?>
 
 <div id="edit_form">
 <form name="" method="post">
+<input type="hidden" name="fId" value="<?php print $scheduler_id ?>">
+<input type="hidden" name="fType" value="<?php print $scheduler_type ?>">
 <table>
     <tr>
-        <td colspan="3"><h3>Testo temporaneo!!!!!!</h3></td>
+        <td colspan="3"><h3>Schedulazione invio mail</h3></td>
     </tr>
     <tr>
         <td nowrap>Oggetto:&nbsp;</td>
@@ -26,7 +27,7 @@ $rows = mysqli_fetch_assoc ($result_sch);
         <td nowrap>Data Invio:&nbsp;</td>
 	<td>
 <?php
-	$myCalendar = new tc_calendar("datainvio", true, false);
+	$myCalendar = new tc_calendar("fDataInvio", true, false);
 	$myCalendar->setPath("calendar/");
 	$myCalendar->setIcon("calendar/images/iconCalendar.gif");
 	$myCalendar->setDate(date('d'), date('m'), date('Y'));
@@ -35,12 +36,12 @@ $rows = mysqli_fetch_assoc ($result_sch);
 	$myCalendar->setYearInterval(2011, 2030);
 	$myCalendar->writeScript();
 ?>
-	<select name="invio_ora">
+	<select name="fInvio_Ora">
 <?php	for ($i=0;$i<24;$i++) { ?>
 		<option value=<?php print $i ?>><?php print $i ?></option>
 <?php	} ?>
 	</select>
-	<select name="invio_min">
+	<select name="fInvio_Min">
 <?php	for ($i=0;$i<60;$i+=5) { ?>
 		<option value=<?php print $i ?>><?php print $i ?></option>
 <?php	} ?>
@@ -51,7 +52,7 @@ $rows = mysqli_fetch_assoc ($result_sch);
     <tr>
         <td nowrap>Lista di invio:&nbsp;</td>
 	<td>
-	<select name="invio_ora">
+	<select name="fInvio_Lista">
 <?php	while ($rows = mysqli_fetch_assoc ($result_lis)) { ?>
 		<option value=<?php print $rows['id'] ?>><?php print $rows['nome'] ?></option>
 <?php	} ?>
@@ -66,9 +67,10 @@ $rows = mysqli_fetch_assoc ($result_sch);
 
     <tr>
         <td colspan="3" class="hlp_center">
-            <input class="button" type="submit" name="fAway" value="<?php print $PALANG['pUsersVacation_button_away']; ?>" />
-            <input class="button" type="submit" name="fBack" value="<?php print $PALANG['pUsersVacation_button_back']; ?>" />
-            <input class="button" type="submit" name="fCancel" value="<?php print $PALANG['exit']; ?>" />
+            <input class="button" type="submit" name="fSchedula" value="<?php print "Conferma" ?>" />
+            <input class="button" type="submit" name="fSchedula" value="<?php print "Clona" ?>" />
+            <input class="button" type="submit" name="fSchedula" value="<?php print "Elimina" ?>" />
+            <input class="button" type="submit" name="fSchedula" value="<?php print "Annulla" ?>" />
         </td>
     </tr>
     <tr>
