@@ -26,7 +26,7 @@ if ($num > 0) {
 	while ($rows = mysqli_fetch_assoc ($result)) {
 		print "	  <tr class=\"hilightoff\" onMouseOver=\"className='hilighton';\" onMouseOut=\"className='hilightoff';\">\n";
 		print "      <td width=\"5%\">&nbsp;</td>\n";
-		print "      <td align=left><a href=\"\">".$rows['nome']."</a></td>\n";
+		print "      <td align=left><a href=\"list-mm-dett.php?idl=".$rows['id']."\">".$rows['nome']."</a></td>\n";
 		print "      <td>".$rows['quanti']."</td>\n";
 		print "      <td align=left>".$rows['modifica']."</td>\n";
 		print "   </tr>\n";

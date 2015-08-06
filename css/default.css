@@ -259,13 +259,13 @@ ul.flash-error {
 	margin: 0 auto;
 }
 
-#alias_domain_table, #alias_table, #mailbox_table, #overview_table, #log_table, #admin_table {
+#alias_domain_table, #alias_table, #mailbox_table, #overview_table, #log_table, #admin_table, #list_table {
 	width: 850px;
 	margin: 0px auto;
 	border: 1px solid #efefef;
 }
 
-#alias_domain_table .header, #alias_table .header, #mailbox_table .header, #overview_table .header, #log_table .header, #admin_table .header {
+#alias_domain_table .header, #alias_table .header, #mailbox_table .header, #overview_table .header, #log_table .header, #admin_table .header, #list_table .header {
 	line-height: 20px;
 	background: #efefef;
 	color: black;

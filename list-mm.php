@@ -52,18 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				flash_error("Nome di lista gia' esistente");
 			}
 		}
-
-
-
-
-
-
-
 	}
 }
 
 
 $query	= "	SELECT 
+			liste.id AS id,
 			liste.nome AS nome,
 			DATE_FORMAT(liste.data, '%d.%m.%Y %T') AS modifica,
 			COUNT(destinatari.id) AS quanti
