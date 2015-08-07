@@ -3,6 +3,10 @@ if( !defined('POSTFIXADMIN') ) die( "This file cannot be used standalone." );
 
 $rows = mysqli_fetch_assoc ($result); 
 
+if (is_null ($rows['termine'])) {
+	$rows['termine'] = "Interrotto";
+}
+
 $tab_stato = 	array(
 			-2	=>	'Errore permanente',
 			-1	=>	'Errore temporaneo',
@@ -88,7 +92,9 @@ $tab_stato = 	array(
 	</tr>
 
 	<tr>
-		<td align=left colspan=5><?php print $rows['indirizzo']?></td>
+<?php // list-mm-mail.php?idm=4&idl=1 ?>
+
+		<td align=left colspan=5><a href = "list-mm-mail.php?idm=<?php print $rows['id']?>"><?php print $rows['indirizzo']?></a></td>
 		<td align=left colspan=4><?php print $rows['nome']?></td>
 		<td align=center colspan=4><?php print $rows['inviata']?></td>
 		<td align=center colspan=4><?php print $rows['data_reply']?></td>
@@ -101,11 +107,11 @@ $tab_stato = 	array(
 <?php } ?>
 </table>
 
-<table id="admin_table">
+<table id="list_table">
     <tr><td colspan="3">&nbsp;</td></tr>
     <tr>
         <td colspan="3" class="hlp_center">
-            <input class="button" type="submit" name="fSchedula" value="<?php print "Torna" ?>" />
+	    <input class="button" type="button" value="Torna" onclick="history.go(-1);" />
         </td>
     </tr>
     <tr>

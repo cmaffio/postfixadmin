@@ -40,16 +40,21 @@ print "   </tr>\n";
 print "   <tr><td colspan=\"7\">&nbsp;</td></tr>\n";
 print "   <tr><td colspan=\"7\">\n";
 print "       <input class=\"button\" type=\"submit\" name=\"fSchedula\" value=\"$testo\">\n";
-print "       <input class=\"button\" type=\"submit\" name=\"fSchedula\" value=\"Torna\">\n";
+print "       <input class=\"button\" type=\"button\" value=\"Torna\" onclick=\"history.go(-1);\" />\n";
 print "   </td></tr>\n";
 print "   <tr><td colspan=\"7\">&nbsp;</td></tr>\n";
 print "</table>\n";
 print "</form>\n";
 
-
-
 print "<table id=\"list_table\">\n";
 while ($rows = mysqli_fetch_assoc ($result_m)) {
+
+	if ($rows['stato'] < 0) {
+		$status = "<b>".$rows['action']." ".$rows['status']."</b>";
+	} else {
+		$status = $rows['action']." ".$rows['status'];
+	}
+
 	print "   <tr class=\"header\">\n";
 	print "      <td width=\"5%\">&nbsp;</td>\n";
 	print "      <td width=\"55%\" align=\"left\">Oggetto</td>\n";
@@ -62,7 +67,7 @@ while ($rows = mysqli_fetch_assoc ($result_m)) {
 	print "      <td width=\"55%\" align=\"left\">".pack ("H*", $rows['oggetto'])."</td>\n";
 	print "      <td width=\"15%\" align=\"left\">".$rows['data']."</td>\n";
 	print "      <td width=\"15%\" align=\"left\">".$rows['data_reply']."</td>\n";
-	print "      <td width=\"10%\" align=\"left\">".$rows['action']." ".$rows['status']."</td>\n";
+	print "      <td width=\"10%\" align=\"left\">$status</td>\n";
 	print "   </tr>\n";
 	print "   <tr>\n";
 	print "      <td width=\"5%\">&nbsp;</td>\n";
@@ -71,8 +76,6 @@ while ($rows = mysqli_fetch_assoc ($result_m)) {
 	print "   <tr>\n";
 	print "      <td colspan=5>&nbsp;</td>\n";
 	print "   </tr>\n";
-
-
 }
 print "</table>\n";
 ?>

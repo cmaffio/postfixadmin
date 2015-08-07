@@ -55,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	}
 }
 
-
 $query	= "	SELECT 
 			liste.id AS id,
 			liste.nome AS nome,

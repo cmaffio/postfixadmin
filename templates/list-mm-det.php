@@ -1,13 +1,47 @@
 <?php if( !defined('POSTFIXADMIN') ) die( "This file cannot be used standalone." ); ?>
 <?php 
 
-print "<form name=\"\" method=\"post\">\n";
+$rows = mysqli_fetch_assoc ($result_n);
+
+
 print "<table id=\"admin_table\">\n";
 
-if ($num > 0) {
 	print "   <tr class=\"header\">\n";
-	print "      <td colspan=\"7\">Liste Mail</td>\n";
+	print "      <td colspan=\"7\">Indirizzi lista ".$rows['nome']."</td>\n";
 	print "   </tr>\n";
+
+	print "<form name=\"\" method=\"post\">\n";
+	print "<input type=\"hidden\" name=\"idl\" value=\"$idl\">\n";
+	print "   <tr>\n";
+	print "      <td>&nbsp;</td>\n";
+	print "      <td align=left><input type=\"text\" name=\"fName\"></td>\n";
+	print "      <td colspan=\"5\" align=left><input class=\"button\" type=\"submit\" name=\"fSchedula\" value=\"Rinomina lista\"></td>\n";
+	print "   </tr>\n";
+	print "</form>\n";
+
+	print "<form name=\"\" method=\"post\" enctype=\"multipart/form-data\">\n";
+	print "<input type=\"hidden\" name=\"idl\" value=\"$idl\">\n";
+	print "   <tr>\n";
+	print "      <td>&nbsp;</td>\n";
+	print "      <td><input type=\"file\" name=\"fFile\"></td>\n";
+	print "      <td>\n";
+
+	print "      <select name=\"fTipo\">\n";
+	print "           <option value=\"\">Seleziona formato</option>\n";
+	print "           <option value=\"Base\">Base</option>\n";
+	print "           <option value=\"Thunderbird\">Thunderbird</option>\n";
+	print "      </select>\n";
+
+	print "      </td>\n";
+	print "      <td colspan=\"4\" align=left><input class=\"button\" type=\"submit\" name=\"fSchedula\" value=\"Aggiungi indirizzi\"></td>\n";
+	print "   </tr>\n";
+	print "</form>\n";
+
+	print "   <tr>\n";
+	print "      <td colspan=\"7\">&nbsp;</td>\n";
+	print "   </tr>\n";
+
+if ($num > 0) {
 	print "   <tr class=\"header\">\n";
 	print "      <td width=\"5%\">&nbsp;</td>\n";
 	print "      <td width=\"25%\" align=left>Indirizzo e-mail</td>\n";
@@ -31,8 +65,18 @@ if ($num > 0) {
 	}
 
 }
-print "</table>\n";
+print "   <tr>\n";
+print "      <td colspan=\"7\">&nbsp;</td>\n";
+print "   </tr>\n";
+
+print "<form name=\"\" method=\"post\">\n";
+print "<input type=\"hidden\" name=\"idl\" value=\"$idl\">\n";
+print "   <tr>\n";
+print "      <td colspan=\"7\"><input class=\"button\" type=\"submit\" name=\"fSchedula\" value=\"Torna\"></td>\n";
+print "   </tr>\n";
 print "</form>\n";
+
+print "</table>\n";
 
 
 ?>

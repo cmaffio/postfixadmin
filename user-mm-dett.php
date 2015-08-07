@@ -56,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 				invii.status AS status,
 				invii.dc AS dc,
 				destinatari.indirizzo AS indirizzo,
+				destinatari.id AS id,
 				destinatari.nome AS nome
 			FROM
 				invii
