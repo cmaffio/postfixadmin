@@ -167,9 +167,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				for ($i = 0, $a = ""; $i<32; $i++) { $a .= mt_rand(0,9); }
 				$query = "	INSERT INTO
 							scheduler
-							(id_utenze, id_ricezioni, stato, messageid)
+							(id_utenze, id_ricezioni, stato, messageid, numero)
 						SELECT
-							id_utenze, id_ricezioni, stato, '$a'
+							id_utenze, id_ricezioni, stato, '$a', numero
 						FROM 
 							scheduler
 						WHERE
