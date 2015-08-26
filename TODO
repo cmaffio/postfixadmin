@@ -1,0 +1,9 @@
+Funzionalita' da integrare
+- Possibilita' di inserire manualmente un indirizzo in una lista di invio
+- Possibilita' di modificare un indirizzo di una lista
+- Invio mail di ricezione di un nuovo scheduler
+- Invio mail di conferma termine invio con stato
+- Report di import con lista mail scartate
+
+Bug da risolvere
+- Pulsanti di ritorno
