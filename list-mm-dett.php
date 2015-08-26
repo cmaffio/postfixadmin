@@ -32,6 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	if (isset ($_POST['idl'])) $idl = safepost('idl');
 	if (isset ($_POST['fSchedula'])) $fSchedula = safepost('fSchedula');
 	if (isset ($_POST['fTipo'])) $fTipo = safepost('fTipo');
+	if (isset ($_POST['fNome'])) $fNome = safepost('fNome');
+	if (isset ($_POST['fMail'])) $fMail = safepost('fMail');
 
 	if ($fSchedula == "Torna") {
 		header ("Location: ".$CONF['postfix_admin_url']."/list-mm.php");
@@ -112,6 +114,36 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						id = $idl
 			";
 			$result = mysqli_query ($link_mm, $query);
+		}
+	}
+
+	if ($fSchedula == "Aggiungi") {
+		if ($fNome == "" || $fMail == "") {
+			flash_error("Inserire nome ed indirizzo mail");
+		} else {
+
+
+			if (filter_var($fMail, FILTER_VALIDATE_EMAIL)) {
+				$query = "	INSERT INTO
+							destinatari
+						SET
+							id_utenze = (SELECT id FROM utenze WHERE mail = '".authentication_get_username()."'),
+							id_liste = $idl,
+							data_ins = NOW(),
+							data_mod = NOW(),
+							indirizzo = '$fMail',
+							nome = '$fNome',
+							errori = 0,
+							stato = 1
+						ON DUPLICATE KEY UPDATE
+							id = id
+					";
+
+//				print "$query<br>";
+				$result = mysqli_query ($link_mm, $query);
+			} else {
+				flash_error("Formato indirizzo maili errato");
+			}
 		}
 	}
 }

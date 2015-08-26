@@ -28,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	if (isset ($_POST['idl'])) $idl = safepost('idl');
 	if (isset ($_POST['idm'])) $idm = safepost('idm');
 	if (isset ($_POST['fSchedula'])) $fSchedula = safepost('fSchedula');
+	if (isset ($_POST['fNome'])) $fnome = safepost('fNome');
+	if (isset ($_POST['fMail'])) $fmail = safepost('fMail');
 
 	if ($fSchedula == "Torna") {
 		header ("Location: ".$CONF['postfix_admin_url']."/list-mm-dett.php?idl=$idl");
@@ -42,9 +44,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 				WHERE
 					id = $idm
 		";
-//print "$query";
+//		print "$query";
+		$result = mysqli_query ($link_mm, $query);
+	} elseif ($fSchedula == "Aggiorna") {
+
+		$query = "	UPDATE
+					destinatari
+				SET
+					indirizzo = '$fmail',
+					nome = '$fnome',
+					data_mod = NOW()
+				WHERE
+					id = $idm
+		";
+//		print "$query";
 		$result = mysqli_query ($link_mm, $query);
 	}
+
+
 }
 
 $query	= "	SELECT 

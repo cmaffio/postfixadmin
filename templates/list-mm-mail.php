@@ -29,8 +29,8 @@ print "   </tr>\n";
 
 print "	  <tr class=\"hilightoff\" onMouseOver=\"className='hilighton';\" onMouseOut=\"className='hilightoff';\">\n";
 print "      <td width=\"5%\">&nbsp;</td>\n";
-print "      <td width=\"25%\" align=left>".$rows['indirizzo']."</td>\n";
-print "      <td width=\"20%\" align=left>".$rows['nome']."</td>\n";
+print "      <td width=\"25%\" align=left><input type=\"text\" name=\"fMail\" value=\"".$rows['indirizzo']."\"></td>\n";
+print "      <td width=\"20%\" align=left><input type=\"text\" name=\"fNome\" value=\"".$rows['nome']."\"></td>\n";
 print "      <td width=\"20%\">".$rows['creato']."</td>\n";
 print "      <td width=\"20%\">".$rows['modificato']."</td>\n";
 print "      <td width=\"5%\">".$rows['errori']."</td>\n";
@@ -41,6 +41,7 @@ print "   <tr><td colspan=\"7\">&nbsp;</td></tr>\n";
 print "   <tr><td colspan=\"7\">\n";
 print "       <input class=\"button\" type=\"submit\" name=\"fSchedula\" value=\"$testo\">\n";
 print "       <input class=\"button\" type=\"button\" value=\"Torna\" onclick=\"history.go(-1);\" />\n";
+print "       <input class=\"button\" type=\"submit\" name=\"fSchedula\" value=\"Aggiorna\">\n";
 print "   </td></tr>\n";
 print "   <tr><td colspan=\"7\">&nbsp;</td></tr>\n";
 print "</table>\n";
