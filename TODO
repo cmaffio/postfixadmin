@@ -1,9 +1,10 @@
 Funzionalita' da integrare
 - Invio mail di ricezione di un nuovo scheduler
 - Invio mail di conferma termine invio con stato
-- Report di import con lista mail scartate
 - Parametrizzare configurazione scheduler
 - Spostare pattern di riconoscimento su DB
+- Gestione spostamento/copia fra liste
+- Aggiunta import su formato outlook
 
 Bug da risolvere
 - Pulsanti di ritorno
@@ -13,4 +14,5 @@ Changelog
 26.08.2015
 - Possibilita' di modificare un indirizzo di una lista
 - Possibilita' di inserire manualmente un indirizzo in una lista di invio
+- Report di import con lista mail scartate
 

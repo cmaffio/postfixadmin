@@ -57,8 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						flash_error("Formato non riconosciuto");
 				}
 
-				$importati = $errati = 0;
+				$importati = $errati = $totale = 0;
+				$scartati_m = array();
+				$scartati_r = array();
 				foreach($righe as $line) {
+					if  (!$totale++) continue;
 					$rit = preg_match($pattern, $line, $matches);
 					if ($rit) {
 						$mail = $matches[2];
@@ -87,15 +90,36 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 							$importati++;
 						} else {
 							$errati++;
+							$scartati_m[] = $mail;
 						}
-
-
 					} else {
 						$errati++;
+						$scartati_r[] = $mail;
 					}
 
 				}
 
+				if (sizeof($scartati_m)>0 || sizeof($scartati_r)>0) {
+					$testo = "";
+					if (sizeof($scartati_m)>0) {
+						$testo .= "Le seguenti mail non sono state importate in quanto non corrette<br>";
+						foreach ($scartati_m as $ind) {
+							$testo .= "\"$ind\"<br>";
+						} 
+					}
+
+					if (sizeof($scartati_r)>0) {
+						if ($testo != "") {
+							$testo .= "<br>";
+						}
+						$testo .= "Le seguenti righe non sono state importate in quanto non corrette<br>";
+						foreach ($scartati_r as $ind) {
+							$testo .= "$ind<br>";
+						} 
+					}
+
+					flash_error($testo);
+				}
 			}
 		}
 
