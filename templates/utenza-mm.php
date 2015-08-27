@@ -40,7 +40,7 @@ if ($num_mm_sch > 0) {
 	print "   </tr>\n";
 
 	while ($rows = mysqli_fetch_assoc ($result_sch)) {
-		$query_dim = "SELECT COUNT(id) AS dim FROM destinatari WHERE id_liste = ".$rows['lista_id'];
+		$query_dim = "SELECT COUNT(id) AS dim FROM destinatari WHERE stato = 1 AND id_liste = ".$rows['lista_id'];
 		$result_dim = mysqli_query ($link_mm, $query_dim);
 		$dim = mysqli_fetch_assoc ($result_dim);
 
@@ -73,7 +73,7 @@ if ($num_mm_run > 0) {
 	print "   </tr>\n";
 
 	while ($rows = mysqli_fetch_assoc ($result_run)) {
-		$query_dim = "SELECT COUNT(id) AS dim FROM destinatari WHERE id_liste = ".$rows['lista_id'];
+		$query_dim = "SELECT COUNT(id) AS dim FROM destinatari WHERE stato = 1 AND id_liste = ".$rows['lista_id'];
 		$result_dim = mysqli_query ($link_mm, $query_dim);
 		$dim = mysqli_fetch_assoc ($result_dim);
 
@@ -109,7 +109,7 @@ if ($num_mm_end > 0) {
 	print "   </tr>\n";
 
 	while ($rows = mysqli_fetch_assoc ($result_end)) {
-		$query_dim = "SELECT COUNT(id) AS dim FROM destinatari WHERE id_liste = ".$rows['lista_id'];
+		$query_dim = "SELECT COUNT(id) AS dim FROM destinatari WHERE stato = 1 AND id_liste = ".$rows['lista_id'];
 		$result_dim = mysqli_query ($link_mm, $query_dim);
 		$dim = mysqli_fetch_assoc ($result_dim);
 
