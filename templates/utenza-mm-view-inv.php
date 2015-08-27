@@ -33,8 +33,8 @@ $result = mysqli_query ($link_mm, $query);
 <input type="hidden" name="fId" value="<?php print $scheduler_id ?>">
 <input type="hidden" name="fType" value="<?php print $scheduler_type ?>">
 <table id="admin_table">
-    <tr>
-        <td colspan="3"><h3>Schedulazione invio mail</h3></td>
+    <tr class="header">
+        <td colspan="3">Schedulazione invio mail</td>
     </tr>
     <tr>
         <td nowrap>Oggetto:&nbsp;</td>
