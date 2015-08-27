@@ -38,6 +38,7 @@ $query_sch = "	SELECT
 			ricezioni.oggetto AS oggetto, 
 			DATE_FORMAT(scheduler.data_invio, '%d.%m.%Y %T') AS partenza, 
 			scheduler.id AS id,
+			scheduler.destinatari AS destinatari,
 			liste.nome as lista,
 			liste.id as lista_id,
 			scheduler.numero as blocchi
@@ -62,6 +63,7 @@ $query_run = "	SELECT
 			DATE_FORMAT(scheduler.data_invio, '%d.%m.%Y %T') AS partenza, 
 			DATE_FORMAT(scheduler.data_inizio, '%d.%m.%Y %T') AS iniziata, 
 			scheduler.id AS id,
+			scheduler.destinatari AS destinatari,
 			scheduler.inviate AS inviate,
 			liste.nome as lista,
 			liste.id as lista_id,
@@ -88,6 +90,7 @@ $query_end = "	SELECT
 			DATE_FORMAT(scheduler.data_inizio, '%d.%m.%Y %T') AS iniziata, 
 			DATE_FORMAT(scheduler.data_termine, '%d.%m.%Y %T') AS termine, 
 			scheduler.id AS id,
+			scheduler.destinatari AS destinatari,
 			scheduler.inviate AS inviate,
 			liste.nome as lista,
 			liste.id as lista_id,

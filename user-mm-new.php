@@ -159,6 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						SET
 							data_invio	=	'$data_invio',
 							id_liste	=	$fInvio_Lista,
+							destinatari	=	(SELECT COUNT(id) AS dim FROM destinatari WHERE stato = 1 AND id_liste = $fInvio_Lista),
 							stato		=	1
 						WHERE
 							id		=	$scheduler_id

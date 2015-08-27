@@ -40,16 +40,12 @@ if ($num_mm_sch > 0) {
 	print "   </tr>\n";
 
 	while ($rows = mysqli_fetch_assoc ($result_sch)) {
-		$query_dim = "SELECT COUNT(id) AS dim FROM destinatari WHERE stato = 1 AND id_liste = ".$rows['lista_id'];
-		$result_dim = mysqli_query ($link_mm, $query_dim);
-		$dim = mysqli_fetch_assoc ($result_dim);
-
 		print "	  <tr class=\"hilightoff\" onMouseOver=\"className='hilighton';\" onMouseOut=\"className='hilightoff';\">\n";
 		print "      <td><a href=\"user-mm-new.php?type=sch&id=".$rows['id']."\">".$rows['id']."</a></td>\n";
 		print "      <td align=left>".pack ("H*", $rows['oggetto'])."</td>\n";
 		print "      <td>".$rows['partenza']."</td>\n";
 		print "      <td>".$rows['lista']."</td>\n";
-		print "      <td>".$dim['dim']."</td>\n";
+		print "      <td>".$rows['destinatari']."</td>\n";
 		print "      <td>".$rows['blocchi']."</td>\n";
 		print "   </tr>\n";
 	}
@@ -73,17 +69,13 @@ if ($num_mm_run > 0) {
 	print "   </tr>\n";
 
 	while ($rows = mysqli_fetch_assoc ($result_run)) {
-		$query_dim = "SELECT COUNT(id) AS dim FROM destinatari WHERE stato = 1 AND id_liste = ".$rows['lista_id'];
-		$result_dim = mysqli_query ($link_mm, $query_dim);
-		$dim = mysqli_fetch_assoc ($result_dim);
-
 		print "	  <tr class=\"hilightoff\" onMouseOver=\"className='hilighton';\" onMouseOut=\"className='hilightoff';\">\n";
 		print "      <td><a href=\"user-mm-new.php?type=ela&id=".$rows['id']."\">".$rows['id']."</a></td>\n";
 		print "      <td align=left>".pack ("H*", $rows['oggetto'])."</td>\n";
 		print "      <td>".$rows['partenza']."</td>\n";
 		print "      <td>".$rows['iniziata']."</td>\n";
 		print "      <td>".$rows['lista']."</td>\n";
-		print "      <td>".$rows['inviate']." / ".$dim['dim']."</td>\n";
+		print "      <td>".$rows['inviate']." / ".$rows['destinatari']."</td>\n";
 		print "      <td>".$rows['blocchi']."</td>\n";
 		print "   </tr>\n";
 	}
@@ -109,10 +101,6 @@ if ($num_mm_end > 0) {
 	print "   </tr>\n";
 
 	while ($rows = mysqli_fetch_assoc ($result_end)) {
-		$query_dim = "SELECT COUNT(id) AS dim FROM destinatari WHERE stato = 1 AND id_liste = ".$rows['lista_id'];
-		$result_dim = mysqli_query ($link_mm, $query_dim);
-		$dim = mysqli_fetch_assoc ($result_dim);
-
 		if (is_null ($rows['termine'])) {
 			$rows['termine'] = "Interrotto";
 		}
@@ -124,7 +112,7 @@ if ($num_mm_end > 0) {
 		print "      <td>".$rows['iniziata']."</td>\n";
 		print "      <td>".$rows['termine']."</td>\n";
 		print "      <td>".$rows['lista']."</td>\n";
-		print "      <td>".$rows['inviate']." / ".$dim['dim']."</td>\n";
+		print "      <td>".$rows['inviate']." / ".$rows['destinatari']."</td>\n";
 		print "      <td>".$rows['blocchi']."</td>\n";
 		print "   </tr>\n";
 	}
